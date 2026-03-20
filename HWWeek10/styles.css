@@ -27,6 +27,13 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   image-rendering: pixelated;
+  display: flex;
+  flex-direction: column;
+}
+
+main.container {
+  flex: 1;
+  width: 100%;
 }
 
 /* ─── Scanlines ─── */
