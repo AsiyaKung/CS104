@@ -31,6 +31,14 @@
 
     <!-- Menu Grid -->
     <main class="container">
+        <div class="filter-bar">
+            <span class="filter-label">FILTER:</span>
+            <button class="filter-btn active" data-filter="all">◈ ALL</button>
+            <button class="filter-btn" data-filter="easy">▶ EASY</button>
+            <button class="filter-btn" data-filter="normal">▶ NORMAL</button>
+            <button class="filter-btn" data-filter="hard">▶ HARD</button>
+            <span class="quest-count" id="questCount"></span>
+        </div>
         <div class="grid" id="menu"></div>
     </main>
 
@@ -90,6 +98,8 @@
                     card.className = "card";
                     card.style.animationDelay = (index * 0.15) + "s";
                     card.style.setProperty("--accent", item.color);
+                    card.dataset.difficulty = item.difficulty.toLowerCase();
+                    card.dataset.index = index;
 
                     const levelNum = index + 1;
 
@@ -101,10 +111,15 @@
                                 <span>${item.icon}</span>
                             </div>
                             <div class="card-level">LV.${levelNum}</div>
+                            <div class="card-diff-badge diff-${item.difficulty.toLowerCase()}">${item.difficulty}</div>
                         </div>
                         <div class="card-body">
                             <h2>► ${item.title}</h2>
                             <p>${item.description}</p>
+                            <div class="card-meta">
+                                <span class="card-chapters-count">${item.chapters.length} CHAPTERS</span>
+                                <span class="card-course-code">${item.course}</span>
+                            </div>
                             <div class="card-xp">
                                 <span class="xp-label">EXP</span>
                                 <span class="xp-bar"><span class="xp-fill" style="width:${20 + levelNum * 15}%; background:${item.color}"></span></span>
@@ -124,6 +139,50 @@
                         e.stopPropagation();
                         const idx = parseInt(btn.dataset.index);
                         openModal(idx);
+                    });
+                });
+
+                // Entire card is also clickable
+                document.querySelectorAll(".card").forEach(card => {
+                    card.addEventListener("click", () => {
+                        openModal(parseInt(card.dataset.index));
+                    });
+                });
+
+                // Quest counter
+                const total = data.menu.length;
+                document.getElementById("questCount").textContent = total + " QUEST" + (total !== 1 ? "S" : "");
+
+                // Filter bar logic
+                document.querySelectorAll(".filter-btn").forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                        btn.classList.add("active");
+
+                        const filter = btn.dataset.filter;
+                        const cards = document.querySelectorAll(".card");
+                        let visible = 0;
+
+                        const existing = document.querySelector(".no-results");
+                        if (existing) existing.remove();
+
+                        cards.forEach(card => {
+                            if (filter === "all" || card.dataset.difficulty === filter) {
+                                card.style.display = "";
+                                visible++;
+                            } else {
+                                card.style.display = "none";
+                            }
+                        });
+
+                        document.getElementById("questCount").textContent = visible + " QUEST" + (visible !== 1 ? "S" : "");
+
+                        if (visible === 0) {
+                            const msg = document.createElement("div");
+                            msg.className = "no-results";
+                            msg.textContent = "— NO QUEST FOUND —";
+                            document.getElementById("menu").appendChild(msg);
+                        }
                     });
                 });
             })
