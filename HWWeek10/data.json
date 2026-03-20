@@ -1,0 +1,86 @@
+{
+  "menu": [
+    {
+      "title": "HTML Basics",
+      "description": "พื้นฐานการสร้างโครงสร้างเว็บ เรียนรู้ tags, elements และ semantic HTML",
+      "icon": "🌐",
+      "image": "pic/html.png",
+      "color": "#00d4aa",
+      "course": "HTML101",
+      "difficulty": "EASY",
+      "chapters": [
+        "CH.1: Elements & Semantics",
+        "CH.2: Text & Formatting",
+        "CH.3: Links & Images"
+      ],
+      "currentChapter": "CHAPTER 1: ELEMENTS, SEMANTICS & ATTRIBUTES",
+      "example": "EX: TAGS & <p> Hello </p>"
+    },
+    {
+      "title": "CSS Styling",
+      "description": "การตกแต่งเว็บให้สวยงาม ด้วย Flexbox, Grid และ Animation",
+      "icon": "🎨",
+      "image": "pic/css.png",
+      "color": "#264de4",
+      "course": "CSS102",
+      "difficulty": "NORMAL",
+      "chapters": [
+        "CH.4: Layout & Box Model",
+        "CH.5: Responsive Design",
+        "CH.6: Advanced Positioning"
+      ],
+      "currentChapter": "CHAPTER 4: RESPONSIVE WEB DESIGN",
+      "example": "EX: MEDIA QUERIES & @media screen and ..."
+    },
+    {
+      "title": "JavaScript",
+      "description": "ทำให้เว็บมีความโต้ตอบ ด้วย DOM, Events และ Fetch API",
+      "icon": "⚡",
+      "image": "pic/js.png",
+      "color": "#f7df1e",
+      "course": "JS103",
+      "difficulty": "NORMAL",
+      "chapters": [
+        "CH.4: Functions & Arrays",
+        "CH.5: Objects & Classes",
+        "CH.6: Async/Await & Promises"
+      ],
+      "currentChapter": "CHAPTER 4: ADVANCED FUNCTIONS & ARRAYS",
+      "example": "EX: ARROW FUNCTIONS, MAP/FILTER"
+    },
+    {
+      "title": "Python Programming",
+      "description": "ภาษาเขียนโปรแกรมยอดนิยม สำหรับ Data Science, AI และ Web",
+      "icon": "🐍",
+      "image": "pic/python.png",
+      "color": "#306998",
+      "course": "PY204",
+      "difficulty": "HARD",
+      "chapters": [
+        "CH.4: Decorators",
+        "CH.5: Generators",
+        "CH.6: Meta-Classes",
+        "CH.7: AsyncIO"
+      ],
+      "currentChapter": "CHAPTER 4: DECORATORS & METAPROGRAMMING",
+      "example": "EX: FUNCTION DECORATORS, PROPERTY"
+    },
+    {
+      "title": "Cybersecurity",
+      "description": "พื้นฐานการป้องกันระบบ เรียนรู้ Network Security และ Ethical Hacking",
+      "icon": "🔒",
+      "image": "pic/cyber.png",
+      "color": "#e44d26",
+      "course": "SEC301",
+      "difficulty": "HARD",
+      "chapters": [
+        "CH.1: Network Fundamentals",
+        "CH.2: Cryptography Basics",
+        "CH.3: Ethical Hacking",
+        "CH.4: Defense Strategies"
+      ],
+      "currentChapter": "CHAPTER 1: NETWORK SECURITY FUNDAMENTALS",
+      "example": "EX: FIREWALLS, IDS/IPS, VPN"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Menu — 8-Bit Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Scanline overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-stars"></div>
+        <div class="hero-content">
+            <div class="hero-badge">★ CS104 ★</div>
+            <h1>CODING MENU</h1>
+            <div class="hero-divider">════════════════</div>
+            <p class="hero-sub">SELECT YOUR QUEST<span class="blink">_</span></p>
+            <div class="hero-hp">
+                <span class="hp-label">HP</span>
+                <span class="hp-bar"><span class="hp-fill"></span></span>
+                <span class="hp-text">100/100</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Grid -->
+    <main class="container">
+        <div class="grid" id="menu"></div>
+    </main>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box" id="modalBox">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div class="modal-header" id="modalHeader">
+                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-title-area">
+                    <span class="modal-level" id="modalLevel"></span>
+                    <h2 id="modalTitle"></h2>
+                </div>
+                <div class="modal-difficulty" id="modalDifficulty"></div>
+            </div>
+            <div class="modal-image-area" id="modalImageArea">
+                <img id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-body">
+                <div class="modal-sidebar" id="modalSidebar">
+                    <div class="modal-course" id="modalCourse"></div>
+                    <ul class="modal-chapters" id="modalChapters"></ul>
+                </div>
+                <div class="modal-main">
+                    <div class="modal-current" id="modalCurrent"></div>
+                    <div class="modal-example" id="modalExample"></div>
+                    <div class="modal-desc" id="modalDesc"></div>
+                    <div class="modal-xp-area">
+                        <span class="xp-label">EXP</span>
+                        <span class="xp-bar"><span class="xp-fill" id="modalXpFill"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" id="modalBtn">NEXT LESSON</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>♦ PRESS START ♦ CS104 &copy; 2026 ♦</p>
+        <p class="footer-sub">INSERT COIN TO CONTINUE</p>
+    </footer>
+
+    <script>
+        let menuData = [];
+
+        fetch("data.json")
+            .then(response => response.json())
+            .then(data => {
+                menuData = data.menu;
+                const menuDiv = document.getElementById("menu");
+
+                data.menu.forEach((item, index) => {
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.style.animationDelay = (index * 0.15) + "s";
+                    card.style.setProperty("--accent", item.color);
+
+                    const levelNum = index + 1;
+
+                    card.innerHTML = `
+                        <div class="card-image" style="background-color: ${item.color}22">
+                            <img src="${item.image}" alt="${item.title}"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="card-icon-fallback" style="display:none;">
+                                <span>${item.icon}</span>
+                            </div>
+                            <div class="card-level">LV.${levelNum}</div>
+                        </div>
+                        <div class="card-body">
+                            <h2>► ${item.title}</h2>
+                            <p>${item.description}</p>
+                            <div class="card-xp">
+                                <span class="xp-label">EXP</span>
+                                <span class="xp-bar"><span class="xp-fill" style="width:${20 + levelNum * 15}%; background:${item.color}"></span></span>
+                            </div>
+                            <button class="card-tag" data-index="${index}" style="border-color: ${item.color}; color: ${item.color}">
+                                [ START ] →
+                            </button>
+                        </div>
+                    `;
+
+                    menuDiv.appendChild(card);
+                });
+
+                // Attach click events to all START buttons
+                document.querySelectorAll(".card-tag").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        const idx = parseInt(btn.dataset.index);
+                        openModal(idx);
+                    });
+                });
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
+        // Modal logic
+        const overlay = document.getElementById("modalOverlay");
+        const modalBox = document.getElementById("modalBox");
+
+        function openModal(index) {
+            const item = menuData[index];
+            const levelNum = index + 1;
+
+            document.getElementById("modalIcon").textContent = item.icon;
+            document.getElementById("modalLevel").textContent = "LV." + levelNum;
+            document.getElementById("modalTitle").textContent = item.title.toUpperCase();
+            document.getElementById("modalCourse").textContent = "▶ COURSE: " + item.course;
+
+            // Difficulty
+            const diffEl = document.getElementById("modalDifficulty");
+            diffEl.textContent = item.difficulty;
+            diffEl.className = "modal-difficulty diff-" + item.difficulty.toLowerCase();
+
+            // Image
+            const img = document.getElementById("modalImage");
+            img.src = item.image;
+            img.alt = item.title;
+            img.onerror = function () {
+                this.parentElement.style.display = 'none';
+            };
+            document.getElementById("modalImageArea").style.display = '';
+
+            // Chapters
+            const chapList = document.getElementById("modalChapters");
+            chapList.innerHTML = "";
+            item.chapters.forEach(ch => {
+                const li = document.createElement("li");
+                li.textContent = ch;
+                chapList.appendChild(li);
+            });
+
+            // Current chapter & example
+            document.getElementById("modalCurrent").textContent = item.currentChapter;
+            document.getElementById("modalExample").textContent = item.example;
+            document.getElementById("modalDesc").textContent = item.description;
+
+            // XP bar
+            const xpFill = document.getElementById("modalXpFill");
+            xpFill.style.width = (20 + levelNum * 15) + "%";
+            xpFill.style.background = item.color;
+
+            // Color theming
+            modalBox.style.setProperty("--accent", item.color);
+            document.getElementById("modalHeader").style.borderColor = item.color;
+
+            // Show
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            overlay.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+
+        document.getElementById("modalClose").addEventListener("click", closeModal);
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+
+        document.getElementById("modalBtn").addEventListener("click", () => {
+            closeModal();
+        });
+    </script>
+</body>
+
+</html>
