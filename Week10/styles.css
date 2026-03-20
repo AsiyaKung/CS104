@@ -1,0 +1,293 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Playfair Display", serif;
+  background-color: #0a0a0a;
+  color: #e8e0d5;
+  overflow-x: hidden;
+}
+
+/* ─── Hero Section ─── */
+.hero {
+  position: relative;
+  height: 70vh;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(20, 10, 5, 0.85)),
+    url("https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=1400&q=80")
+      center/cover no-repeat;
+  z-index: 0;
+  transform: scale(1.05);
+  animation: heroZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1.15);
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content .subtitle {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 1.1rem;
+  color: #c9a96e;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.hero-content .tagline {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: #c9a96e;
+  margin: 1.2rem auto;
+}
+
+/* ─── Section Title ─── */
+.section-title {
+  text-align: center;
+  padding: 3rem 0 1rem;
+}
+
+.section-title h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #c9a96e;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.section-title p {
+  font-family: "Noto Sans JP", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin-top: 0.5rem;
+}
+
+/* ─── Menu Grid ─── */
+.menu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem 4rem;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* ─── Cards ─── */
+.menu-card {
+  background: #151515;
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.menu-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.menu-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.menu-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.menu-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.menu-card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    0 20px 60px rgba(201, 169, 110, 0.15),
+    0 0 0 1px rgba(201, 169, 110, 0.1);
+}
+
+.menu-card .card-image {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.menu-card .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.menu-card:hover .card-image img {
+  transform: scale(1.1);
+}
+
+.menu-card .card-image::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(transparent, #151515);
+  pointer-events: none;
+}
+
+.menu-card .card-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.menu-card .card-content h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.menu-card .card-content .description {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.menu-card .card-content .price-tag {
+  display: inline-block;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #c9a96e;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  padding: 0.4rem 1.5rem;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover .price-tag {
+  background: #c9a96e;
+  color: #0a0a0a;
+}
+
+/* ─── Footer ─── */
+.site-footer {
+  background: #0f0f0f;
+  border-top: 1px solid rgba(201, 169, 110, 0.15);
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.site-footer .footer-logo {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  color: #c9a96e;
+  letter-spacing: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer p {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 1px;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .hero {
+    height: 50vh;
+    min-height: 350px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.4rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-content .subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+  }
+
+  .menu-container {
+    padding: 1rem 1rem 3rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .section-title h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

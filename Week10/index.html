@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi House — Premium Japanese Cuisine</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="subtitle">Premium Japanese Cuisine</p>
+            <h1>Sushi House By 1680704093</h1>
+            <div class="hero-divider"></div>
+            <p class="tagline">Crafted with passion, served with perfection.<br>Experience authentic flavors from Tokyo
+                to your table.</p>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <div class="section-title">
+        <h2>Our Menu</h2>
+        <p>freshly prepared daily</p>
+    </div>
+
+    <div class="menu-container">
+        <div class="menu-grid" id="menu"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-logo">鮨 SUSHI HOUSE</div>
+        <p>&copy; 2026 Sushi House. All rights reserved.</p>
+    </footer>
+
+    <script>
+        fetch("menu.json")
+            .then(response => response.json())
+            .then(data => {
+                const menuContainer = document.getElementById("menu");
+                data.menu.forEach(item => {
+                    const card = document.createElement("div");
+                    card.className = "menu-card";
+
+                    let imageSrc = '';
+                    if (item.name === 'Salmon Roll') imageSrc = 'roll.jpeg';
+                    else if (item.name === 'Tuna Roll') imageSrc = 'tuna.jpg';
+                    else if (item.name === 'Tempura') imageSrc = 'sushi.jpeg';
+                    else if (item.name === 'California Roll') imageSrc = 'california.jpg';
+
+                    card.innerHTML = `
+                        <div class="card-image">
+                            <img src="${imageSrc}" alt="${item.name}">
+                        </div>
+                        <div class="card-content">
+                            <h3>${item.name}</h3>
+                            <p class="description">${item.description || ''}</p>
+                            <span class="price-tag">${item.price} THB</span>
+                        </div>
+                    `;
+
+                    menuContainer.appendChild(card);
+                });
+            });
+    </script>
+</body>
+
+</html>

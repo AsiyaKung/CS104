@@ -1,0 +1,25 @@
+{
+  "restaurant": "Sushi House",
+  "menu": [
+    {
+      "name": "Salmon Roll",
+      "price": 250,
+      "description": "Fresh Atlantic salmon wrapped in seasoned rice and nori seaweed"
+    },
+    {
+      "name": "Tuna Roll",
+      "price": 230,
+      "description": "Premium bluefin tuna with cucumber and sesame seeds"
+    },
+    {
+      "name": "Tempura",
+      "price": 200,
+      "description": "Crispy battered shrimp and vegetables with dipping sauce"
+    },
+    {
+      "name": "California Roll",
+      "price": 220,
+      "description": "Crab meat, avocado and tobiko wrapped inside-out style"
+    }
+  ]
+}
